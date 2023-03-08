@@ -4,6 +4,7 @@ import PersonForm from "./PersonForm";
 import { usePersons } from "./persons/custom-hooks";
 import { useState } from "react";
 import Notify from "./Notify";
+import PhoneForm from "./PhoneForm";
 
 function App() {
   const { loading, error, data } = usePersons();
@@ -21,6 +22,7 @@ function App() {
     <div className="App">
       <Notify errorMessage={errorMessage} />
       {loading ? <p>Loading...</p> : <Persons persons={data?.allPersons} />}
+      <PhoneForm notifyError={notifyError} />
       <PersonForm notifyError={notifyError} />
     </div>
   );

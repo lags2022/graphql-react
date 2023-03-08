@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ALL_PERSONS } from "./persons/graphql-queries";
 import { CREATE_PERSON } from "./persons/graphql-mutations";
 
-export default function PersonForm({notifyError}) {
+export default function PersonForm({ notifyError }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
@@ -13,7 +13,7 @@ export default function PersonForm({notifyError}) {
     refetchQueries: [{ query: ALL_PERSONS }], //esto es para que cuando se cree un nuevo person se refresque la lista de persons
     onError: (error) => {
       notifyError(error.graphQLErrors[0].message);
-    }
+    },
   });
 
   const handleSubmit = (e) => {
