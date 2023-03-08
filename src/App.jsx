@@ -2,8 +2,9 @@ import "./App.css";
 import { gql, useQuery } from "@apollo/client";
 //useQuery es un hook que nos permite hacer consultas a graphql
 import Persons from "./Persons";
+import PersonForm from "./PersonForm";
 
-const ALL_PERSONS = gql`
+export const ALL_PERSONS = gql`
   query {
     allPersons {
       id
@@ -19,10 +20,12 @@ const ALL_PERSONS = gql`
 
 function App() {
   const { loading, error, data } = useQuery(ALL_PERSONS);
+  // const { loading, error, data } = useQuery(ALL_PERSONS,{pollInterval: 2000});
   if (error) return <span style={{ color: red }}>{error}</span>;
   return (
     <div className="App">
       {loading ? <p>Loading...</p> : <Persons persons={data?.allPersons} />}
+      <PersonForm />
     </div>
   );
 }
