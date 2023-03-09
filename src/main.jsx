@@ -9,10 +9,19 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 
+const getAuth = () => {
+  const token = localStorage.getItem("phonenumber-user-token");
+  return token ? `bearer ${token}` : null;
+};
+
 const client = new ApolloClient({
+  connectToDevTools: true,
   cache: new InMemoryCache(), //aqui se guarda la informacion
   link: new HttpLink({
-    uri: "http://localhost:4000/",
+    headers: {
+      authorization: getAuth(),
+    },
+    uri: "http://localhost:4000/", //no olvidar que esto se tiene que colocar en el archivo .env variable de entorno
   }),
 });
 
