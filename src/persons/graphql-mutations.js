@@ -10,7 +10,6 @@ export const CREATE_PERSON = gql`
     addPerson(name: $name, phone: $phone, street: $street, city: $city) {
       name
       phone
-      id
       address {
         city
         street
