@@ -10,9 +10,19 @@ export default function PersonForm({ notifyError }) {
   const [city, setCity] = useState("");
 
   const [createPerson] = useMutation(CREATE_PERSON, {
-    refetchQueries: [{ query: ALL_PERSONS }], //esto es para que cuando se cree un nuevo person se refresque la lista de persons
+    // refetchQueries: [{ query: ALL_PERSONS }], //esto es para que cuando se cree un nuevo person se refresque la lista de persons
     onError: (error) => {
       notifyError(error.graphQLErrors[0].message);
+    },
+    update: (store, response) => {
+      const dataInStore = store.readQuery({ query: ALL_PERSONS });
+      store.writeQuery({
+        query: ALL_PERSONS,
+        data: {
+          ...dataInStore,
+          allPersons: [...dataInStore.allPersons, response.data.addPerson],
+        },
+      });
     },
   });
 
