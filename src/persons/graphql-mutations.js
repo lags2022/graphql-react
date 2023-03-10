@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { PERSON_ALL_DETAILS_FRAGMENT } from "./graphql-queries";
 
 export const CREATE_PERSON = gql`
   mutation createPerson(
@@ -8,15 +9,10 @@ export const CREATE_PERSON = gql`
     $city: String!
   ) {
     addPerson(name: $name, phone: $phone, street: $street, city: $city) {
-      name
-      phone
-      address {
-        city
-        street
-      }
-      id
+      ...PersonDetails
     }
   }
+  ${PERSON_ALL_DETAILS_FRAGMENT}
 `;
 
 export const EDIT_NUMBER = gql`
