@@ -1,6 +1,5 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
-import { ALL_PERSONS } from "./persons/graphql-queries";
 import { CREATE_PERSON } from "./persons/graphql-mutations";
 
 export default function PersonForm({ notifyError }) {
@@ -14,16 +13,16 @@ export default function PersonForm({ notifyError }) {
     onError: (error) => {
       notifyError(error.graphQLErrors[0].message);
     },
-    update: (store, response) => {
-      const dataInStore = store.readQuery({ query: ALL_PERSONS });
-      store.writeQuery({
-        query: ALL_PERSONS,
-        data: {
-          ...dataInStore,
-          allPersons: [...dataInStore.allPersons, response.data.addPerson],
-        },
-      });
-    },
+    // update: (store, response) => {
+    //   const dataInStore = store.readQuery({ query: ALL_PERSONS });
+    //   store.writeQuery({
+    //     query: ALL_PERSONS,
+    //     data: {
+    //       ...dataInStore,
+    //       allPersons: [...dataInStore.allPersons, response.data.addPerson],
+    //     },
+    //   });
+    // },
   });
 
   const handleSubmit = (e) => {
